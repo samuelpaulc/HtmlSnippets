@@ -3,55 +3,55 @@
 <title>Simple progress bar</title>
 <style>
 .progressWrapper  {
-	position: relative; /* Since for practical purpose it should be part of page elements, but yet creates a render context */
-	background: silver;
-	width:500px;
-	height:100px;
+    position: relative; /* Since for practical purpose it should be part of page elements, but yet creates a render context */
+    background: silver;
+    width:500px;
+    height:100px;
 }
 /* This div becomes smaller inside a timer exposing the progress wrapper's background  */
 .progress {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	transition: right .2s linear;
-	background: yellow;
-	opacity: 0.7;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: right .2s linear;
+    background: yellow;
+    opacity: 0.7;
 }
 .progressMessage {
-	position: absolute; /* Needed to appear highest among siblings */
-	width:100%;
-	height:100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: transparent;
+    position: absolute; /* Needed to appear highest among siblings */
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
 }
 </style>
 <script lang="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
 <script lang="text/javascript">
-	function doProgress() {
-		$('.startProgressBtn').prop("disabled", true); /// dont allow multiple progress at the same time
-		var timer = null, count = 0, step =5;
-		var progress = $(".progress");
-		progress.css("left", "0%"); // reset	
-		timer = setInterval(function() {
-			count += step;
-			progress.css("left", count + "%");
-			if (count >= 100) {
-				window.clearInterval(timer);
-				$('.startProgressBtn').prop("disabled", false);
-			}
-		}, 250);
-	}
+    function doProgress() {
+        $('.startProgressBtn').prop("disabled", true); /// dont allow multiple progress at the same time
+        var timer = null, count = 0, step =5;
+        var progress = $(".progress");
+        progress.css("left", "0%"); // reset    
+        timer = setInterval(function() {
+            count += step;
+            progress.css("left", count + "%");
+            if (count >= 100) {
+                window.clearInterval(timer);
+                $('.startProgressBtn').prop("disabled", false);
+            }
+        }, 250);
+    }
 </script>
 </head>
 <body>
 <div class="progressWrapper">
-	<div class="progress"></div>
-	<div class="progressMessage">Uploading...</div>
+    <div class="progress"></div>
+    <div class="progressMessage">Uploading...</div>
 </div>
 <button class="startProgressBtn" onclick="doProgress()">Start Progress</button>
 </body>
