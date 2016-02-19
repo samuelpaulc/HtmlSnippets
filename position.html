@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Basic positioning</title>
+<style>
+.referenceElement  {
+    position: absolute; /* Since for practical purpose it should be part of page elements, but yet creates a render context */
+    background: silver;
+	top: 100px;
+	left: 100px;
+    width:500px;
+    height:200px;
+	border-radius: 8px;
+	border: 1px yellow solid;
+	z-index: 99;
+}
+.elementToBePositioned {
+	width: 600px;
+	height: 100px;
+	border: 1px blue solid;
+	background: blue;
+	position: absolute;
+	z-index: 100;
+}
+</style>
+<script lang="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+<script lang="text/javascript">
+    function show(loc) {
+		$('.elementToBePositioned').remove();
+		var ref = $('.referenceElement');
+		var refPos = ref.offset(); // offset is w.r.t document, position() is w.r.t closest render context, i.e closest element which has position equal to absolute, relative, or fixed
+		var ele = $('<div/>').addClass('elementToBePositioned').appendTo(document.body);
+		switch (loc) {
+			case "below":
+				ele.css({
+					'left': (refPos.left + (ref.width() - ele.width())/2) + "px",
+					'top' : (refPos.top + ref.height() + 10) + "px"
+				});
+				break;
+			
+			case "center":
+				ele.css({
+					'left': (refPos.left + (ref.width() - ele.width())/2) + "px",
+					'top' : (refPos.top + (ref.height() - ele.height())/2) + "px"
+				});
+				break;
+		};
+		ele.show();
+	}
+
+	$(document).ready(function() {
+		$('input[name=loc]').change(function() {
+			show(this.value);
+		});
+	});
+	
+</script>
+</head>
+<body>
+<div class="referenceElement"></div>
+<div>
+Location: <br/>
+	<input type="radio" name="loc" value="below">Below &nbsp;&nbsp;&nbsp;	<input type="radio" name="loc" value="center">Center<br>
+</div>
+
+</body>
+</html>
